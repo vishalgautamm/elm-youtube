@@ -1,0 +1,17 @@
+{
+  "name": "elm-webpack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack"
+  },
+  "devDependencies": {
+    "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "elm-webpack-loader": "^4.4.0",
+    "querystring": "^0.2.0"
+  }
+}

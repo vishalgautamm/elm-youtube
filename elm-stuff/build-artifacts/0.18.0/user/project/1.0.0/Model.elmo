@@ -1,0 +1,13 @@
+var _user$project$Model$Youtube = F7(
+	function (a, b, c, d, e, f, g) {
+		return {id: a, video: b, channelTitle: c, title: d, description: e, thumbnail: f, datePublished: g};
+	});
+var _user$project$Model$Model = F3(
+	function (a, b, c) {
+		return {word: a, videos: b, selectedVideo: c};
+	});
+var _user$project$Model$init = A3(
+	_user$project$Model$Model,
+	'elm',
+	{ctor: '[]'},
+	'');

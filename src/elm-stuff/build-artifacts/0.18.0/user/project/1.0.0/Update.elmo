@@ -1,0 +1,88 @@
+var _user$project$Update$youtubeDecoder = A8(
+	_elm_lang$core$Json_Decode$map7,
+	_user$project$Model$Youtube,
+	A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'video', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'channelTitle', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'title', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'description', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'thumbnail', _elm_lang$core$Json_Decode$string),
+	A2(_elm_lang$core$Json_Decode$field, 'datePublished', _elm_lang$core$Json_Decode$string));
+var _user$project$Update$youbeListDecoder = _elm_lang$core$Json_Decode$list(_user$project$Update$youtubeDecoder);
+var _user$project$Update$decodeSuggestions = _elm_lang$core$Json_Decode$decodeValue(
+	A2(_elm_lang$core$Json_Decode$field, 'result', _user$project$Update$youbeListDecoder));
+var _user$project$Update$onKeyDown = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'keydown',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$keyCode));
+};
+var _user$project$Update$check = _elm_lang$core$Native_Platform.outgoingPort(
+	'check',
+	function (v) {
+		return v;
+	});
+var _user$project$Update$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Change':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{word: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'KeyDown':
+				return _elm_lang$core$Native_Utils.eq(_p0._0, 13) ? {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _user$project$Update$check(model.word)
+				} : {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+			case 'Check':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _user$project$Update$check(model.word)
+				};
+			case 'Suggest':
+				if (_p0._0.ctor === 'Ok') {
+					return {
+						ctor: '_Tuple2',
+						_0: A3(_user$project$Model$Model, model.word, _p0._0._0, ''),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				}
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{selectedVideo: _p0._0}),
+					{ctor: '[]'});
+		}
+	});
+var _user$project$Update$suggestions = _elm_lang$core$Native_Platform.incomingPort('suggestions', _elm_lang$core$Json_Decode$value);
+var _user$project$Update$SelectedVideo = function (a) {
+	return {ctor: 'SelectedVideo', _0: a};
+};
+var _user$project$Update$Suggest = function (a) {
+	return {ctor: 'Suggest', _0: a};
+};
+var _user$project$Update$subscriptions = function (model) {
+	return _user$project$Update$suggestions(
+		function (_p1) {
+			return _user$project$Update$Suggest(
+				_user$project$Update$decodeSuggestions(_p1));
+		});
+};
+var _user$project$Update$Check = {ctor: 'Check'};
+var _user$project$Update$KeyDown = function (a) {
+	return {ctor: 'KeyDown', _0: a};
+};
+var _user$project$Update$Change = function (a) {
+	return {ctor: 'Change', _0: a};
+};
